@@ -12,7 +12,7 @@ public class Store {
 
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
-    private Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
+    private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
     private Store() {
         posts.put(1, new Post(1, "Junior Java Job", "Junior should suffer", "23-03-2021"));
