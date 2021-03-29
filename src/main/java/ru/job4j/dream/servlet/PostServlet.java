@@ -11,6 +11,12 @@ import java.io.IOException;
 
 public class PostServlet extends HttpServlet {
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("posts", PostsStore.instOf().findAll());
+        req.getRequestDispatcher("/posts.jsp").forward(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         PostsStore.instOf().save(
@@ -19,6 +25,6 @@ public class PostServlet extends HttpServlet {
                         req.getParameter("name")
                 )
         );
-        resp.sendRedirect(req.getContextPath() + "/posts.jsp");
+        resp.sendRedirect(req.getContextPath() + "/posts.do");
     }
 }
