@@ -6,19 +6,19 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class CandidatesStore {
-    private static final CandidatesStore INST = new CandidatesStore();
+public class CandidatesMemStore implements Store<Candidate> {
+    private static final CandidatesMemStore INST = new CandidatesMemStore();
     private static final AtomicInteger ID = new AtomicInteger(4);
 
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
-    private CandidatesStore() {
+    private CandidatesMemStore() {
         candidates.put(1, new Candidate(1, "Junior Java"));
         candidates.put(2, new Candidate(2, "Middle Java"));
         candidates.put(3, new Candidate(3, "Senior Java"));
     }
 
-    public static CandidatesStore instOf() {
+    public static CandidatesMemStore instOf() {
         return INST;
     }
 
