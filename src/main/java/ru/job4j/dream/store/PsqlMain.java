@@ -4,7 +4,7 @@ import ru.job4j.dream.model.Post;
 
 public class PsqlMain {
     private void start() {
-        Store<Post> store = PostPsqlStore.instOf();
+        Store<Post> store = PostsPsqlStore.instOf();
         store.save(new Post(0, "Zero ID"));
         store.save(new Post(3, "Middle Java Job edited"));
         System.out.println("*** findById() ***");

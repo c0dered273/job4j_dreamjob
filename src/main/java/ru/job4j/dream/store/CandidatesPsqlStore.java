@@ -1,7 +1,7 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.Candidate;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Connection;
@@ -12,18 +12,18 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
-public class PostPsqlStore implements Store<Post> {
+public class CandidatesPsqlStore implements Store<Candidate> {
     private final BasicDataSource pool = new BasicDataSource();
 
     private static final class Lazy {
-        private static final Store<Post> INSTANCE = new PostPsqlStore();
+        private static final Store<Candidate> INSTANCE = new CandidatesPsqlStore();
     }
 
-    public static Store<Post> instOf() {
+    public static Store<Candidate> instOf() {
         return Lazy.INSTANCE;
     }
 
-    private PostPsqlStore() {
+    private CandidatesPsqlStore() {
         Properties cfg = new Properties();
         try (BufferedReader io = new BufferedReader(
                 new FileReader("db.properties"))) {
@@ -46,13 +46,13 @@ public class PostPsqlStore implements Store<Post> {
     }
 
     @Override
-    public Collection<Post> findAll() {
-        List<Post> post = new ArrayList<>();
+    public Collection<Candidate> findAll() {
+        List<Candidate> post = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM posts ORDER BY id")) {
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidates ORDER BY id")) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    post.add(new Post(it.getInt("id"), it.getString("name")));
+                    post.add(new Candidate(it.getInt("id"), it.getString("name")));
                 }
             }
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class PostPsqlStore implements Store<Post> {
     }
 
     @Override
-    public void save(Post item) {
+    public void save(Candidate item) {
         if (item.getId() == 0) {
             create(item);
         } else {
@@ -71,10 +71,10 @@ public class PostPsqlStore implements Store<Post> {
     }
 
     @Override
-    public Post findById(int id) {
-        Post result = new Post(-1, "");
+    public Candidate findById(int id) {
+        Candidate result = new Candidate(-1, "");
         try (Connection cn = pool.getConnection();
-            PreparedStatement ps = cn.prepareStatement("SELECT * from posts WHERE id = ?")) {
+            PreparedStatement ps = cn.prepareStatement("SELECT * from candidates WHERE id = ?")) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -88,32 +88,29 @@ public class PostPsqlStore implements Store<Post> {
         return result;
     }
 
-    private Post create(Post post) {
+    private Candidate create(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-            PreparedStatement ps = cn.prepareStatement("INSERT INTO posts(name) VALUES (?)",
+            PreparedStatement ps = cn.prepareStatement("INSERT INTO candidates(name) VALUES (?)",
                     PreparedStatement.RETURN_GENERATED_KEYS)) {
-            ps.setString(1, post.getName());
+            ps.setString(1, candidate.getName());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
-                    post.setId(id.getInt(1));
+                    candidate.setId(id.getInt(1));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return post;
+        return candidate;
     }
 
-    private void update(Post post) {
+    private void update(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-            PreparedStatement ps = cn.prepareStatement("UPDATE posts " +
-                    "SET name = ?, description = ?, created = ? " +
-                    "WHERE id = ?")) {
-            ps.setString(1, post.getName());
-            ps.setString(2, post.getDescription());
-            ps.setString(3, post.getCreated());
-            ps.setInt(4, post.getId());
+            PreparedStatement ps = cn.prepareStatement("UPDATE candidates " +
+                    "SET name = ? WHERE id = ?")) {
+            ps.setString(1, candidate.getName());
+            ps.setInt(2, candidate.getId());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

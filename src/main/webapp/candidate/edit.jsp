@@ -1,8 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="ru.job4j.dream.store.PostsMemStore" %>
-<%@ page import="ru.job4j.dream.model.Post" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
-<%@ page import="ru.job4j.dream.store.CandidatesMemStore" %>
+<%@ page import="ru.job4j.dream.store.CandidatesPsqlStore" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,7 +25,7 @@
     String id = request.getParameter("id");
     Candidate candidate = new Candidate(0, "");
     if (id != null) {
-        candidate = CandidatesMemStore.instOf().findById(Integer.parseInt(id));
+        candidate = CandidatesPsqlStore.instOf().findById(Integer.parseInt(id));
     }
 %>
 <div class="container pt-3">
