@@ -21,26 +21,57 @@
 </head>
 <body>
 <div class="container pt-3">
-
+    <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/post/edit.jsp">Добавить вакансию</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do?action=edit">Добавить кандидата</a>
+            </li>
+        </ul>
+    </div>
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
                 Кандидаты
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-bordered">
                     <thead>
-                    <tr>
-                        <th scope="col">Названия</th>
+                    <tr><th scope="col" style="width: 100px"></th>
+                        <th scope="col" style="width: 50px"></th>
+                        <th scope="col" style="width: 50px"></th>
+                        <th scope="col">ФИО</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${candidates}" var="can">
                     <tr>
                         <td>
-                            <a href="<c:url value="/candidate/edit.jsp?id=${can.id}"/>">
-                                <i class="fa fa-edit mr-3"></i>
+                            <img src="<c:url value='/download?id=${can.id}'/>" width="100px" height="100px"/>
+                            <div class="btn-group" role="group" aria-label="Add del">
+                                <a href="<c:url value="/upload?id=${can.id}"/>" class="btn btn-primary btn-sm m-1" role="button">Добавить</a>
+                                <a href="<c:url value="/upload?id=${can.id}&action=delete"/>" class="btn btn-danger btn-sm m-1" role="button">Удалить</a>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="<c:url value="/candidates.do?action=edit&id=${can.id}"/>">
+                                <i class="fa fa-edit"></i>
                             </a>
+                        </td>
+                        <td>
+                            <a href="<c:url value="/candidates.do?action=delete&id=${can.id}"/>">
+                                <i class="fa fa-user-times"></i>
+                            </a>
+                        </td>
+                        <td style="width: auto">
                             <c:out value="${can.name}"/>
                         </td>
                     </tr>

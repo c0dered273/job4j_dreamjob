@@ -1,6 +1,7 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -67,6 +68,17 @@ public class PostsPsqlStore implements Store<Post> {
             create(item);
         } else {
             update(item);
+        }
+    }
+
+    @Override
+    public void delete(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("DELETE FROM posts WHERE id = ?")) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -7,5 +7,7 @@ public interface Store<T> {
 
     void save(T item);
 
+    void delete(int id);
+
     T findById(int id);
 }

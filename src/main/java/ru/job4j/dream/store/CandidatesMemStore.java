@@ -33,6 +33,11 @@ public class CandidatesMemStore implements Store<Candidate> {
         candidates.put(candidate.getId(), candidate);
     }
 
+    @Override
+    public void delete(int id) {
+        candidates.remove(id);
+    }
+
     public Candidate findById(int id) {
         return candidates.get(id);
     }

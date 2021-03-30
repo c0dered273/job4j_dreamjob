@@ -71,6 +71,17 @@ public class CandidatesPsqlStore implements Store<Candidate> {
     }
 
     @Override
+    public void delete(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("DELETE FROM candidates WHERE id = ?")) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public Candidate findById(int id) {
         Candidate result = new Candidate(-1, "");
         try (Connection cn = pool.getConnection();

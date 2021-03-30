@@ -36,6 +36,11 @@ public class PostsMemStore implements Store<Post> {
     }
 
     @Override
+    public void delete(int id) {
+        posts.remove(id);
+    }
+
+    @Override
     public Post findById(int id) {
         return posts.get(id);
     }
