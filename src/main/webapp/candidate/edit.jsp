@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
 <%@ page import="ru.job4j.dream.store.CandidatesPsqlStore" %>
 <!doctype html>
@@ -44,7 +45,8 @@
                         <label>Имя</label>
                         <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="submit" class="btn btn-primary m-1">Сохранить</button>
+                    <a href="<c:url value="/candidates.do"/>" class="btn btn-danger m-1" role="button">Отмена</a>
                 </form>
             </div>
         </div>
