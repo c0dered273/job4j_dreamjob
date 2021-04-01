@@ -1,6 +1,8 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.Candidate;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class CandidatesPsqlStore implements Store<Candidate> {
+    private static final Logger logger = LoggerFactory.getLogger(CandidatesPsqlStore.class);
     private final BasicDataSource pool = new BasicDataSource();
 
     private static final class Lazy {
@@ -57,7 +60,7 @@ public class CandidatesPsqlStore implements Store<Candidate> {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
         return post;
     }
@@ -78,7 +81,7 @@ public class CandidatesPsqlStore implements Store<Candidate> {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
     }
 
@@ -95,7 +98,7 @@ public class CandidatesPsqlStore implements Store<Candidate> {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
         return result;
     }
@@ -112,7 +115,7 @@ public class CandidatesPsqlStore implements Store<Candidate> {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
         return candidate;
     }
@@ -125,7 +128,7 @@ public class CandidatesPsqlStore implements Store<Candidate> {
             ps.setInt(2, candidate.getId());
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
     }
 }

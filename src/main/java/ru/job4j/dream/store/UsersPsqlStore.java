@@ -1,6 +1,8 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.User;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class UsersPsqlStore implements UserStore {
+    private static final Logger logger = LoggerFactory.getLogger(UsersPsqlStore.class);
     private final BasicDataSource pool = new BasicDataSource();
 
     private static final class Lazy {
@@ -56,7 +59,7 @@ public class UsersPsqlStore implements UserStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
         return users;
     }
@@ -77,7 +80,7 @@ public class UsersPsqlStore implements UserStore {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
     }
 
@@ -88,7 +91,7 @@ public class UsersPsqlStore implements UserStore {
             ps.setString(1, email);
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
     }
 
@@ -104,7 +107,7 @@ public class UsersPsqlStore implements UserStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
         return user;
     }
@@ -121,7 +124,7 @@ public class UsersPsqlStore implements UserStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
         return user;
     }
@@ -140,7 +143,7 @@ public class UsersPsqlStore implements UserStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
         return rsl;
     }
@@ -158,7 +161,7 @@ public class UsersPsqlStore implements UserStore {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
     }
 
@@ -173,7 +176,7 @@ public class UsersPsqlStore implements UserStore {
             ps.setInt(4, user.getId());
             ps.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error DB connection or PrepareStatement execution", e);
         }
     }
 
