@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -102,7 +103,7 @@ public class CandidatesPsqlStore implements Store<Candidate> {
     private Candidate create(Candidate candidate) {
         try (Connection cn = pool.getConnection();
             PreparedStatement ps = cn.prepareStatement("INSERT INTO candidates(name) VALUES (?)",
-                    PreparedStatement.RETURN_GENERATED_KEYS)) {
+                    Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, candidate.getName());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {

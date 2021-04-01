@@ -5,3 +5,5 @@ INSERT INTO posts(name, description, created) VALUES ('Senior Java Job', '400kk/
 INSERT INTO candidates(name) VALUES ('Junior Java');
 INSERT INTO candidates(name) VALUES ('Middle Java');
 INSERT INTO candidates(name) VALUES ('Senior Java');
+
+INSERT INTO users (name, email, password) VALUES ('root', 'root@localhost', crypt('root', gen_salt('bf')));

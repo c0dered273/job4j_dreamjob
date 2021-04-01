@@ -1,13 +1,13 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -103,7 +103,7 @@ public class PostsPsqlStore implements Store<Post> {
     private Post create(Post post) {
         try (Connection cn = pool.getConnection();
             PreparedStatement ps = cn.prepareStatement("INSERT INTO posts(name) VALUES (?)",
-                    PreparedStatement.RETURN_GENERATED_KEYS)) {
+                    Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, post.getName());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
