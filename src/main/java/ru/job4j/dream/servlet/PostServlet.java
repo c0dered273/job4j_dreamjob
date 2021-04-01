@@ -12,9 +12,16 @@ import java.io.IOException;
 public class PostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("posts", PostsPsqlStore.instOf().findAll());
         req.setAttribute("user", req.getSession().getAttribute("user"));
-        req.getRequestDispatcher("/posts.jsp").forward(req, resp);
+        String action = req.getParameter("action");
+        if ("edit".equals(action)) {
+            req.getRequestDispatcher("/post/edit.jsp").forward(req, resp);
+            return;
+        }
+        if ("delete".equals(action)) {
+            deletePost(req);
+        }
+        defaultViewPosts(req, resp);
     }
 
     @Override
@@ -27,5 +34,16 @@ public class PostServlet extends HttpServlet {
                 )
         );
         resp.sendRedirect(req.getContextPath() + "/posts.do");
+    }
+
+    private void deletePost(HttpServletRequest req) {
+        String id = req.getParameter("id");
+        PostsPsqlStore.instOf().delete(Integer.parseInt(id));
+    }
+
+    private void defaultViewPosts (HttpServletRequest req, HttpServletResponse resp)
+            throws IOException, ServletException {
+        req.setAttribute("posts", PostsPsqlStore.instOf().findAll());
+        req.getRequestDispatcher("/posts.jsp").forward(req, resp);
     }
 }

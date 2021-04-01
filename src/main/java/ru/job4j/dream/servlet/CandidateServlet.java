@@ -13,14 +13,12 @@ public class CandidateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("user", req.getSession().getAttribute("user"));
         String action = req.getParameter("action");
-        if (action != null) {
-           if ("edit".equals(action)) {
-                req.getRequestDispatcher("/candidate/edit.jsp").forward(req, resp);
-                return;
-           }
-           if ("delete".equals(action)) {
-               deleteCandidate(req, resp);
-           }
+        if ("edit".equals(action)) {
+            req.getRequestDispatcher("/candidate/edit.jsp").forward(req, resp);
+            return;
+        }
+        if ("delete".equals(action)) {
+            deleteCandidate(req);
         }
         defaultViewCandidates(req, resp);
     }
@@ -37,12 +35,10 @@ public class CandidateServlet extends HttpServlet {
         resp.sendRedirect(req.getContextPath() + "/candidates.do");
     }
 
-    private void deleteCandidate(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException, ServletException {
+    private void deleteCandidate(HttpServletRequest req) {
         String id = req.getParameter("id");
         CandidatesPsqlStore.instOf().delete(Integer.parseInt(id));
         UploadServlet.deleteFile(id);
-        defaultViewCandidates(req, resp);
     }
 
     private void defaultViewCandidates(HttpServletRequest req, HttpServletResponse resp)

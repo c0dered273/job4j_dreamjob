@@ -25,6 +25,7 @@ public class AuthServlet extends HttpServlet {
             user = users.findByEmail(email);
             HttpSession sc = req.getSession();
             sc.setAttribute("user", user);
+            logger.info("Успешный вход в систему: {}", email);
             resp.sendRedirect(req.getContextPath());
         } else {
             logger.info("Не верный email или пароль: {}, {}", email, password);

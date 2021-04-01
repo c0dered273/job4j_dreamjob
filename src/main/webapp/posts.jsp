@@ -30,10 +30,10 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/post/edit.jsp">Добавить вакансию</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/posts.do?action=edit">Добавить вакансию</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do?action=edit">Добавить кандидата</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
@@ -49,16 +49,25 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Названия</th>
+                        <th scope="col" style="width: 50px"></th>
+                        <th scope="col" style="width: 50px"></th>
+                        <th scope="col">Название</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach items="${posts}" var="post">
                     <tr>
                         <td>
-                            <a href="<c:url value="/post/edit.jsp?id=${post.id}"/>">
-                                <i class="fa fa-edit mr-3"></i>
+                            <a href="<c:url value="/posts.do?action=edit&id=${post.id}"/>">
+                                <i class="fa fa-edit"></i>
                             </a>
+                        </td>
+                        <td>
+                            <a href="<c:url value="/posts.do?action=delete&id=${post.id}"/>">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                        <td style="width: auto">
                             <c:out value="${post.name}"/>
                         </td>
                     </tr>
