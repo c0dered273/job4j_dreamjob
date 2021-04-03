@@ -59,7 +59,7 @@ public class UsersPsqlStore implements UserStore<User> {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution: findAll()", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: findAll()", e);
         }
         return users;
     }
@@ -80,7 +80,7 @@ public class UsersPsqlStore implements UserStore<User> {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution: delete(id)", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: delete(id)", e);
         }
     }
 
@@ -91,7 +91,7 @@ public class UsersPsqlStore implements UserStore<User> {
             ps.setString(1, email);
             ps.executeUpdate();
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution: delete(email)", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: delete(email)", e);
         }
     }
 
@@ -107,7 +107,7 @@ public class UsersPsqlStore implements UserStore<User> {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution: findById()", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: findById()", e);
         }
         return user;
     }
@@ -124,7 +124,7 @@ public class UsersPsqlStore implements UserStore<User> {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution: findByEmail()", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: findByEmail()", e);
         }
         return user;
     }
@@ -143,7 +143,7 @@ public class UsersPsqlStore implements UserStore<User> {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution: checkPass()", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: checkPass()", e);
         }
         return rsl;
     }
@@ -163,7 +163,7 @@ public class UsersPsqlStore implements UserStore<User> {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution: create()", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: create()", e);
         }
     }
 
@@ -178,7 +178,7 @@ public class UsersPsqlStore implements UserStore<User> {
             ps.setInt(4, user.getId());
             ps.executeUpdate();
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution: update()", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: update()", e);
         }
     }
 

@@ -60,7 +60,7 @@ public class PostsPsqlStore implements Store<Post> {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: findAll()", e);
         }
         return post;
     }
@@ -81,7 +81,7 @@ public class PostsPsqlStore implements Store<Post> {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: delete()", e);
         }
     }
 
@@ -98,7 +98,7 @@ public class PostsPsqlStore implements Store<Post> {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: findById()", e);
         }
         return result;
     }
@@ -115,7 +115,7 @@ public class PostsPsqlStore implements Store<Post> {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: create()", e);
         }
         return post;
     }
@@ -131,7 +131,7 @@ public class PostsPsqlStore implements Store<Post> {
             ps.setInt(4, post.getId());
             ps.executeUpdate();
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: update()", e);
         }
     }
 }

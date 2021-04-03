@@ -60,7 +60,7 @@ public class CandidatesPsqlStore implements Store<Candidate> {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: findAll", e);
         }
         return post;
     }
@@ -81,7 +81,7 @@ public class CandidatesPsqlStore implements Store<Candidate> {
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: delete()", e);
         }
     }
 
@@ -98,7 +98,7 @@ public class CandidatesPsqlStore implements Store<Candidate> {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: findById()", e);
         }
         return result;
     }
@@ -115,7 +115,7 @@ public class CandidatesPsqlStore implements Store<Candidate> {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: create()", e);
         }
         return candidate;
     }
@@ -128,7 +128,7 @@ public class CandidatesPsqlStore implements Store<Candidate> {
             ps.setInt(2, candidate.getId());
             ps.executeUpdate();
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: update()", e);
         }
     }
 }
