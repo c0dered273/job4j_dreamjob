@@ -12,15 +12,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
-public class UsersPsqlStore implements UserStore {
+public class UsersPsqlStore implements UserStore<User> {
     private static final Logger logger = LoggerFactory.getLogger(UsersPsqlStore.class);
     private final BasicDataSource pool = new BasicDataSource();
 
     private static final class Lazy {
-        private static final UserStore INSTANCE = new UsersPsqlStore();
+        private static final UserStore<User> INSTANCE = new UsersPsqlStore();
     }
 
-    public static UserStore instOf() {
+    public static UserStore<User> instOf() {
         return UsersPsqlStore.Lazy.INSTANCE;
     }
 
