@@ -8,11 +8,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            $('#newUserForm :input').each(function () {
+                if ($(this).attr('type') === 'text' && $(this).val() === '') {
+                    alert("Please fill " + $(this).attr('placeholder'));
+                    return false;
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 
 <div class="container">
-    <form action="">
+    <form id="newUserForm" action="">
         <div class="form-group">
             <label for="fstName" class="mr-sm-2">Firstname:</label>
             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Firstname" id="fstName">
@@ -33,7 +43,7 @@
             <label for="desc" class="mr-sm-2">Description:</label>
             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Description" id="desc">
         </div>
-        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        <button type="submit" class="btn btn-primary mb-2" onclick="return validate();">Submit</button>
     </form>
     <h2 class="pt-5">Users</h2>
     <table class="table table-stripped">
