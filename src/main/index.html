@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Forms</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <form action="">
+        <div class="form-group">
+            <label for="fstName" class="mr-sm-2">Firstname:</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Firstname" id="fstName">
+            <label for="lastName" class="mr-sm-2">Lastname:</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Lastname" id="lastName">
+            <div class="form-check  mb-2 mr-sm-2">
+                <input class="form-check-input" type="radio" id="maleRadio" name="sex" value="male">
+                <label class="form-check-label" for="maleRadio">Male</label>
+            </div>
+            <div class="form-check  mb-2 mr-sm-2">
+                <input class="form-check-input" type="radio" id="femaleRadio" name="sex" value="female">
+                <label class="form-check-label" for="femaleRadio">Female</label>
+            </div>
+            <div class="form-check  mb-2 mr-sm-2">
+                <input class="form-check-input" type="radio" id="otherRadio" name="sex" value="other" checked>
+                <label class="form-check-label" for="femaleRadio">Other</label>
+            </div>
+            <label for="desc" class="mr-sm-2">Description:</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Description" id="desc">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+    </form>
+    <h2 class="pt-5">Users</h2>
+    <table class="table table-stripped">
+        <thead>
+        <tr>
+            <th scope="row">Firstname</th>
+            <th scope="row">Lastname</th>
+            <th scope="row">Sex</th>
+            <th scope="row">Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Vasya</td>
+            <td>Pupkin</td>
+            <td>Male</td>
+            <td>Description</td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
