@@ -16,6 +16,7 @@
                     return false;
                 }
             })
+            return true;
         }
         function addRow() {
             if (!validate()) { return false; }
@@ -54,7 +55,7 @@
         </div>
         <button type="reset" class="btn btn-primary mb-2" onclick="addRow()">Submit</button>
     </form>
-    <h2 class="pt-5">Users</h2>
+    <h3 class="mt-5 ml-2">Users</h3>
     <table class="table table-stripped" id="usersTable">
         <thead>
         <tr>
