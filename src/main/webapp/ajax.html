@@ -25,6 +25,20 @@
       alert(err);
     });
   }
+  function sendGreetingJSON() {
+    let data = {"text": $('#exampleInputEmail1').val()};
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8080/dreamjob/greet',
+      data: JSON.stringify({data: data}),
+      dataType: 'json',
+      contentType: "application/json; charset=utf-8"
+    }).done(function (ans) {
+      $('#viewEmail').text(ans.data.text);
+    }).fail(function (err) {
+      alert(err);
+    })
+  }
 </script>
 <div class="container">
   <h3 id="viewEmail"></h3>
@@ -33,7 +47,7 @@
       <label for="exampleInputEmail1">Email address</label>
       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
     </div>
-    <button type="button" class="btn btn-primary" onclick="sendGreeting()">Submit</button>
+    <button type="button" class="btn btn-primary" onclick="sendGreetingJSON()">Submit</button>
   </form>
 </div>
 </body>
