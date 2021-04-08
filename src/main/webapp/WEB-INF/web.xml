@@ -34,6 +34,10 @@
     <servlet-name>RegServlet</servlet-name>
     <servlet-class>ru.job4j.dream.servlet.RegServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>GreetingsServlet</servlet-name>
+    <servlet-class>ru.job4j.dream.servlet.GreetingsServlet</servlet-class>
+  </servlet>
 
   <servlet-mapping>
     <servlet-name>IndexServlet</servlet-name>
@@ -62,6 +66,10 @@
   <servlet-mapping>
     <servlet-name>RegServlet</servlet-name>
     <url-pattern>/reg.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GreetingsServlet</servlet-name>
+    <url-pattern>/greet</url-pattern>
   </servlet-mapping>
 
   <filter>
