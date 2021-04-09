@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.store.CandidatesPsqlStore;
+import ru.job4j.dream.store.CitiesPsqlStore;
+
 import java.io.IOException;
 
 public class CandidateServlet extends HttpServlet {
@@ -29,7 +31,8 @@ public class CandidateServlet extends HttpServlet {
         CandidatesPsqlStore.instOf().save(
                 new Candidate(
                         Integer.parseInt(req.getParameter("id")),
-                        req.getParameter("name")
+                        req.getParameter("name"),
+                        Integer.parseInt(req.getParameter("cityId"))
                 )
         );
         resp.sendRedirect(req.getContextPath() + "/candidates.do");
@@ -44,6 +47,7 @@ public class CandidateServlet extends HttpServlet {
     private void defaultViewCandidates(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
         req.setAttribute("candidates", CandidatesPsqlStore.instOf().findAll());
+        req.setAttribute("cities", CitiesPsqlStore.instOf());
         req.getRequestDispatcher("/candidates.jsp").forward(req, resp);
     }
 }
