@@ -56,11 +56,14 @@ public class CandidatesPsqlStore implements Store<Candidate> {
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidates ORDER BY id")) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    post.add(new Candidate(it.getInt("id"), it.getString("name")));
+                    post.add(
+                            new Candidate(it.getInt("id"),
+                                    it.getString("name"),
+                                    it.getInt("cityId")));
                 }
             }
         } catch (Exception e) {
-            logger.error("Error DB connection or PrepareStatement execution. Method: findAll", e);
+            logger.error("Error DB connection or PrepareStatement execution. Method: findAll()", e);
         }
         return post;
     }
@@ -95,6 +98,7 @@ public class CandidatesPsqlStore implements Store<Candidate> {
                 if (rs.next()) {
                     result.setId(rs.getInt("id"));
                     result.setName(rs.getString("name"));
+                    result.setCityId(rs.getInt("cityId"));
                 }
             }
         } catch (Exception e) {
@@ -105,9 +109,10 @@ public class CandidatesPsqlStore implements Store<Candidate> {
 
     private Candidate create(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-            PreparedStatement ps = cn.prepareStatement("INSERT INTO candidates(name) VALUES (?)",
+            PreparedStatement ps = cn.prepareStatement("INSERT INTO candidates(name, cityid) VALUES (?, ?)",
                     Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, candidate.getName());
+            ps.setInt(2, candidate.getCityId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -123,9 +128,10 @@ public class CandidatesPsqlStore implements Store<Candidate> {
     private void update(Candidate candidate) {
         try (Connection cn = pool.getConnection();
             PreparedStatement ps = cn.prepareStatement("UPDATE candidates " +
-                    "SET name = ? WHERE id = ?")) {
+                    "SET name = ?, cityid = ? WHERE id = ?")) {
             ps.setString(1, candidate.getName());
-            ps.setInt(2, candidate.getId());
+            ps.setInt(2, candidate.getCityId());
+            ps.setInt(3, candidate.getId());
             ps.executeUpdate();
         } catch (Exception e) {
             logger.error("Error DB connection or PrepareStatement execution. Method: update()", e);

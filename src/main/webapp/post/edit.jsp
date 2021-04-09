@@ -40,10 +40,10 @@
                 <% } %>
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId()%>" method="post">
+                <form id="newPost" action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId()%>" onsubmit="return validate()" method="post">
                     <div class="form-group">
-                        <label>Имя</label>
-                        <input type="text" class="form-control" name="name" value="<%=post.getName()%>">
+                        <label for="postName">Имя</label>
+                        <input type="text" class="form-control" id="postName" name="name" value="<%=post.getName()%>">
                     </div>
                     <button type="submit" class="btn btn-primary m-1">Сохранить</button>
                     <a href="<c:url value="/posts.do"/>" class="btn btn-danger m-1" role="button">Отмена</a>
@@ -52,5 +52,17 @@
         </div>
     </div>
 </div>
+<script>
+    function validate() {
+        let result = true;
+        $('#newPost :input').each(function () {
+            if ($(this).attr('type') === 'text' && $(this).val() === '') {
+                alert("Please fill " + $('label[for="' + this.id + '"]').html());
+                result = false;
+            }
+        })
+        return result;
+    }
+</script>
 </body>
 </html>

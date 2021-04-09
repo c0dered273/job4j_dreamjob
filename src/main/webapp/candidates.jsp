@@ -52,6 +52,7 @@
                         <th scope="col" style="width: 50px"></th>
                         <th scope="col" style="width: 50px"></th>
                         <th scope="col">ФИО</th>
+                        <th scope="col" style="width: 180px">Город</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -76,6 +77,9 @@
                         </td>
                         <td style="width: auto">
                             <c:out value="${can.name}"/>
+                        </td>
+                        <td>
+                            <c:out value="${cities.findById(can.cityId).name}"/>
                         </td>
                     </tr>
                     </c:forEach>
